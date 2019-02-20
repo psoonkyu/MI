@@ -109,7 +109,7 @@ function validate() {
 					<li><a href="<%=request.getContextPath()%>/loginAlert">일정등록</a></li>
 				<%} else{%>
 					<li><a href="<%=request.getContextPath()%>/showCalendar?memberId=<%=loginMember.getMemberId()%>">일정보기</a></li>
-					<li><a href="<%=request.getContextPath()%>/detailSchedule?memberID=<%=loginMember.getMemberId()%>">상세일정 관리</a></li>
+					<li><a href="<%=request.getContextPath()%>/detailAll?memberId=<%=loginMember.getMemberId()%>">상세일정 관리</a></li>
 					<li><a href="<%=request.getContextPath()%>/event?memberId=<%=loginMember.getMemberId()%>">일정등록</a></li>
 
 					<%} %>
