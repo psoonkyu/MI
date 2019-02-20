@@ -13,16 +13,16 @@ import com.mi.group.model.service.GroupService;
 import com.mi.group.model.vo.Group;
 
 /**
- * Servlet implementation class GroupListViewServlet
+ * Servlet implementation class GroupViewServlet
  */
-@WebServlet("/groupList")
-public class GroupListViewServlet extends HttpServlet {
+@WebServlet("/groupView")
+public class GroupViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GroupListViewServlet() {
+    public GroupViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,17 +31,18 @@ public class GroupListViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	
-		String memberId=request.getParameter("memberId");
+	String memberId=request.getParameter("memberId");
 		
 		List<Group> groupList=new GroupService().selectAllGroup(memberId);
 		
 		
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("groupList",groupList);
+		
+		
 		request.getRequestDispatcher("/views/group/groupView.jsp").forward(request, response);
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

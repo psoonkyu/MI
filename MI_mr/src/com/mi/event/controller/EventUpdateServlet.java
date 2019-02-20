@@ -49,7 +49,8 @@ public class EventUpdateServlet extends HttpServlet {
 		
 		e.setEventId(mr.getParameter("eventId"));
 		e.setTitle(mr.getParameter("title"));
-		e.setPrepairingId(mr.getParameter("memberId"));
+		String memberId=mr.getParameter("memberId");
+		e.setPrepairingId(memberId);
 		  try {
 			  java.util.Date util_startDate=new SimpleDateFormat("yy-MM-dd").parse(mr.getParameter("startDate"));
 				java.sql.Date sql_startDate=new java.sql.Date(util_startDate.getTime());
@@ -71,7 +72,7 @@ public class EventUpdateServlet extends HttpServlet {
 		 
 		System.out.println(e.getEndDate());
 		//SimpDateFormat 문제뜨는중
-		e.setGroupId(mr.getParameter("groupId"));
+		e.setGroupId(mr.getParameter("groupList"));
 		e.setMemo(mr.getParameter("memo"));
 		e.setFilePath(mr.getParameter("filePath"));
 		
@@ -96,7 +97,8 @@ public class EventUpdateServlet extends HttpServlet {
 		int result=new EventService().insertEvent(e);
 		System.out.println("결과::"+result);
 		String msg="";
-		String loc="/views/event/eventView.jsp";
+		System.out.println(request.getContextPath()+"/showCalendar?memberId="+memberId);
+		String loc="/showCalendar?memberId="+memberId;
 		if(result>0)
 		{
 			msg="이벤트 등록성공";
@@ -105,6 +107,8 @@ public class EventUpdateServlet extends HttpServlet {
 		{
 			msg="이벤트 등록 실패";
 		}
+		
+		
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

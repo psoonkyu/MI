@@ -120,7 +120,7 @@ function validate() {
 					<span class="icon-calendar"></span>그룹관리
 				</h3>
 				<ul>
-					<li><a href="#">그룹관리</a></li>
+					<li><a href="<%=request.getContextPath() %>/groupView">그룹관리</a></li>
 					<li><a href="<%=request.getContextPath() %>/chat">채팅관리</a></li>
 					<li><a href="#">투표관리</a></li>
 				</ul>
