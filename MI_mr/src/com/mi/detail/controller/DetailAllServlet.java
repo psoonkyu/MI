@@ -36,7 +36,7 @@ public class DetailAllServlet extends HttpServlet {
 	
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/views/detail/detailOne.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/detail/detailAll.jsp").forward(request, response);
 	}
 
 	/**
