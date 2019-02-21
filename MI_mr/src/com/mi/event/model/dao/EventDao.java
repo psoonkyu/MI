@@ -81,17 +81,17 @@ public class EventDao {
 	}
 	
 	
-	public List<Event> detailEvent(Connection conn, String eventId){
+	public Event detailEvent(Connection conn, String eventId){
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;
-		List<Event> list = new ArrayList<>();
+		Event e =null;
 		String sql=prop.getProperty("detailEvent");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, eventId);
 			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				Event e = new Event();
+			if(rs.next()) {
+				e=new Event();
 				e.setEventId(rs.getString("event_id"));
 				e.setTitle(rs.getString("title"));
 				e.setStartDate(rs.getDate("start_date"));
@@ -100,17 +100,16 @@ public class EventDao {
 				e.setMemo(rs.getString("memo"));
 				e.setFilePath(rs.getString("file_path"));
 				e.setPrepairingId(rs.getString("prepairing_id"));
-				list.add(e);
 			}
 		}
-		catch(Exception e) {
-			e.printStackTrace();
+		catch(Exception ex) {
+			ex.printStackTrace();
 		}
 		finally {
 			close(rs);
 			close(pstmt);
 		}
-		return list;
+		return e;
 	}
 	
 	
