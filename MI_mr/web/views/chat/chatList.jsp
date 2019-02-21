@@ -66,8 +66,8 @@
 			</tr>
 			
 			<%for (Chatroom room : list) { %>
-			<tr class="chatroom">
-				<td >
+			<tr >
+				<td class="chatroom">
 					<%=room.getChatroomName() %>
 				</td>
 				<input type="hidden" value="<%=room.getChatroomId()%>"/>
@@ -80,10 +80,34 @@
 				
 		</table>
 	</div>
+	<form name=chatForm></form>
 	<script>
 		$(".chatroom").click(function(){
-			console.log($(this).children("td").text());
-			console.log($(this).children("input").val());
+			/* console.log($(this).children("td").text());
+			console.log($(this).children("input").val()); */
+			console.log($(this).text().trim());
+			console.log($(this).siblings("input").val());
+			var windowName = "test";
+			var chatroomId = $(this).siblings("input").val();
+			var url = "<%=request.getContextPath()%>/chatroom"
+			var option = "left=500px, top=100px, width=500px, height=500px, menuba=no, status=no, scrollbars=yes";		
+			var popup = window.open("", windowName, option)
+			//var chatForm = $("<form></form>");
+			
+			var input = $("<input type='hidden' name='chatroomId'/>");
+			input.val(chatroomId);
+			console.log(input);
+			// $(selector).append(content,function(index,html))
+			chatForm.append(input[0]);
+			
+			chatForm.target = windowName;
+			chatForm.action = url;
+			chatForm.method = "post";
+			console.log(chatForm);
+			
+			chatForm.submit();
+			/* form.after($("#teduri")).submit(); */
+			
 		})
 	</script>
 <%@ include file="/views/common/footer.jsp" %>
