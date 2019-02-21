@@ -2,8 +2,10 @@ package com.mi.group.model.dao;
 
 import java.io.FileReader;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -43,4 +45,37 @@ public class GroupDao {
 		return list;
 	}
 	
+	public List<String> selectId(Connection conn, String search)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<String> list=new ArrayList();
+		String sql=prop.getProperty("selectUserId");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+search+"%");
+			rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				list.add(rs.getString("member_id"));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 }

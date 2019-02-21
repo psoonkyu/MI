@@ -20,5 +20,14 @@ public class GroupService {
 		return groupList;
 	}
 	
+	public List<String> selectId(String search)
+	{
+		Connection conn=getConnection();
+		List<String> list=dao.selectId(conn,search);
+		close(conn);
+		return list;
+		
+	}
+	
 
 }

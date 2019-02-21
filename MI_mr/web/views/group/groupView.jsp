@@ -28,6 +28,7 @@ List<Group> groupList=(List)request.getAttribute("groupList");
  	width:350px;
  	height: 400px;
  	border: 2px solid yellow;
+ 	position:absolute;
  }
  .inline
  {
@@ -44,29 +45,22 @@ List<Group> groupList=(List)request.getAttribute("groupList");
  }
 </style>
 <section id="groupUpdate-container">
-<form action="<%=request.getContextPath()%>/groupList" method="post">
 	<div id="teduri" name="teduri">
-	<input type="hidden" id="memberId" name="memberId" value=<%=memberId %> />
 		<div class="inline" id="glist">
-		<table width="295px"; height="45px";>
+		<table>
 			<tr id="gtr">
 				<th id="gth">그룹 목록</th>
 			</tr>
-			<tr>
-				<td align="center">
-					<input type="text" name="groupList" list="data"/>
-				</td>
-			</tr>
-                <datalist id="data">
                 <%
-                	for(int i=0; i<groupList.size();i++){
+                	for(Group g : groupList){
                 %>
-                	<option value=<%=groupList.get(i).getGroupName()%>></option>
+                <tr>
+                	<td align="center"><%=g.getGroupName() %></td>
+                </tr>
                 <%} %>
-                </datalist>
 			<tr>
 				<td align='right' cellpadding=0 cellspacing=0 >
-					<a href="<%=request.getContextPath()%>/groupUpdate"><img src="<%=request.getContextPath() %>/views/group/plus.png" width="30px" id="plus"></a>
+					<a href="javascript:void(0)" onclick="fn_addGroup()"><img src="<%=request.getContextPath() %>/views/group/plus.png" width="30px" id="plus"></a>
 				</td>
 			</tr>
 				
@@ -76,6 +70,18 @@ List<Group> groupList=(List)request.getAttribute("groupList");
 	
 	</div>
 	</div>
-</form>
+<script>
+	function fn_addGroup(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/addGroup.do",
+			success:function(data){
+				$('#changeView').html(data);
+			}
+		})
+	}
+
+</script>
+
+
 </section>
 <%@ include file="/views/common/footer.jsp" %>

@@ -112,7 +112,7 @@ function validate() {
 					<li><a href="<%=request.getContextPath()%>/detailSchedule?memberID=<%=loginMember.getMemberId()%>">상세일정 관리</a></li>
 					<li><a href="<%=request.getContextPath()%>/event?memberId=<%=loginMember.getMemberId()%>">일정등록</a></li>
 
-					<%} %>
+					
 				</ul>
 			</li>
 			<li>
@@ -120,22 +120,21 @@ function validate() {
 					<span class="icon-calendar"></span>그룹관리
 				</h3>
 				<ul>
-					<li><a href="<%=request.getContextPath() %>/groupView">그룹관리</a></li>
+					<li><a href="<%=request.getContextPath() %>/groupView?memberId=<%=loginMember.getMemberId()%>">그룹관리</a></li>
 					<li><a href="<%=request.getContextPath() %>/chat">채팅관리</a></li>
 					<li><a href="#">투표관리</a></li>
 				</ul>
 			</li>
 			<li>
 				<h3>
-					<span class="icon-heart"></span>작성할사람 작성~~
+					<span class="icon-heart"></span>To do List
 				</h3>
 				<ul>
-					<li><a href="#">기타1</a></li>
-					<li><a href="#">기타2</a></li>
-					<li><a href="#">기타3</a></li>
-					<li><a href="#">기타4</a></li>
+					<li><a href="#">List 등록</a></li>
+					<li><a href="#">List 보기</a></li>
 				</ul>
 			</li>
+			<%} %>
 		</ul>
 	</div>
 	</section>
