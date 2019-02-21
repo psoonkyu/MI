@@ -121,7 +121,12 @@ function validate() {
 				</h3>
 				<ul>
 					<li><a href="#">그룹관리</a></li>
+					<%if(loginMember!=null){ %>
 					<li><a href="<%=request.getContextPath() %>/chatroom?memberId=<%=loginMember.getMemberId()%>">채팅관리</a></li>
+					<%} else { %>
+					<li><a href="<%=request.getContextPath() %>/loginAlert">채팅관리</a></li>
+					
+					<%} %>
 					<li><a href="#">투표관리</a></li>
 				</ul>
 			</li>

@@ -1,8 +1,13 @@
 package com.mi.chat.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Chat {
+public class Chat implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7446472186959882759L;
 	private int chatId;
 	private String chatContent;
 	private Date chatTime;

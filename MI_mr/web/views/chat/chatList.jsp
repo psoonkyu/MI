@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.mi.chat.model.vo.Chatroom"%>
 <%@ include file="/views/common/header.jsp" %>
+<% List<Chatroom> list =  (List<Chatroom>) request.getAttribute("list"); %>
 <style>
  #teduri{
-  	 position: absolute;
-  width: 675px;
-  height: 400px;
-  z-index: 15;
-  top: 45%;
-  left: 32%;
-  margin: -200px 0 0 -150px;
-  border: 2px solid red;
+	/* position: relative; */
+	/* width: 50%;
+	height: 50%;
+	top: 10%;
+	margin:0 auto; */
+	
+	/* border: 2px solid red; */
+	overflow: scroll;
   }
  
  #glist
@@ -35,32 +36,49 @@
  	height : 40px;
  	font-size: 1.5em;
  }
+ 
+ table#chatTable {
+ 	position: relative;
+	width: 50%;
+	height: 50%;
+	
+	margin: 5% auto;
+ 	text-align: center;
+ 	border:1px solid black; 
+ 	border-collapse:collapse;
+ 	
+ }
+ 
+ table#chatTable tr td{
+ 	border:1px solid black;
+ }
 </style>
-<section id="groupUpdate-container">
-<form action="<%=request.getContextPath()%>/groupList" method="post">
-	<div id="teduri" name="teduri">
-		<div class="inline" id="glist">
-		<table width="295px"; height="45px";>
+	<div id="teduri">
+		<table id="chatTable">
 			<tr id="gtr">
 				<th id="gth">채팅 목록</th>
 			</tr>
-			<tr>
-				<td align="center">
-					채팅 목록 들어갈곳
-				</td>
-			</tr>
+			
 			<tr>
 				<td align='right' cellpadding=0 cellspacing=0 >
-					<img src="plus.png" width="30px" id="plus"/>
+					<img src="<%=request.getContextPath() %>/views/image/plus.png" width="30px" id="plus"/>
 				</td>
 			</tr>
+			
+			<%for (Chatroom room : list) { %>
+			<tr>
+				<td class="chatroom"><%=room.getChatroomName() %></td>
+			</tr>
+			<%} %>
+			<tr>
+				<td>Test</td>
+			<tr>
 				
 		</table>
-		</div>
-	<div class="inline" id="changeView">
-	
 	</div>
-	</div>
-</form>
-</section>
+	<script>
+		$(".chatroom").click(function(){
+			console.log()
+		})
+	</script>
 <%@ include file="/views/common/footer.jsp" %>
