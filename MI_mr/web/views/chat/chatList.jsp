@@ -66,9 +66,13 @@
 			</tr>
 			
 			<%for (Chatroom room : list) { %>
-			<tr>
-				<td class="chatroom"><%=room.getChatroomName() %></td>
+			<tr class="chatroom">
+				<td >
+					<%=room.getChatroomName() %>
+				</td>
+				<input type="hidden" value="<%=room.getChatroomId()%>"/>
 			</tr>
+			
 			<%} %>
 			<tr>
 				<td>Test</td>
@@ -78,7 +82,8 @@
 	</div>
 	<script>
 		$(".chatroom").click(function(){
-			console.log()
+			console.log($(this).children("td").text());
+			console.log($(this).children("input").val());
 		})
 	</script>
 <%@ include file="/views/common/footer.jsp" %>
