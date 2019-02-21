@@ -34,7 +34,6 @@ public class BroadSocket {
         String username = userSession.getQueryString().split("=")[1];
         userSession.getUserProperties().put("username", username);
         System.out.println(username);
-        
     }
     /**
      * 웹 소켓으로부터 메시지가 오면 호출한다.
