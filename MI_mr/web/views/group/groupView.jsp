@@ -39,6 +39,9 @@ List<Group> groupList=(List)request.getAttribute("groupList");
  	height : 40px;
  	font-size: 1.5em;
  }
+ #data{
+  RepeatLayout : RepeatLayout.table;
+ }
 </style>
 <section id="groupUpdate-container">
 <form action="<%=request.getContextPath()%>/groupList" method="post">
@@ -52,6 +55,8 @@ List<Group> groupList=(List)request.getAttribute("groupList");
 			<tr>
 				<td align="center">
 					<input type="text" name="groupList" list="data"/>
+				</td>
+			</tr>
                 <datalist id="data">
                 <%
                 	for(int i=0; i<groupList.size();i++){
@@ -59,8 +64,6 @@ List<Group> groupList=(List)request.getAttribute("groupList");
                 	<option value=<%=groupList.get(i).getGroupName()%>></option>
                 <%} %>
                 </datalist>
-				</td>
-			</tr>
 			<tr>
 				<td align='right' cellpadding=0 cellspacing=0 >
 					<a href="<%=request.getContextPath()%>/groupUpdate"><img src="<%=request.getContextPath() %>/views/group/plus.png" width="30px" id="plus"></a>

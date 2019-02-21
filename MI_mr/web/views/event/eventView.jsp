@@ -121,9 +121,23 @@
 	<div id="btndiv">
 	<input type="submit" id="eUpdate" class="btn" onclick="fn_calUpdate()" value="저장"/>
 	&nbsp
-	<input type="button" id="backBtn" class="btn" value="취소"/>
+	<input type="button" id="backBtn" class="btn" value="취소" onclick="location.href='<%=request.getContextPath()%>/'" />
 	</div>
 </form>
 </div>
 </section>
+<script>
+	function fn_calUpdate(){
+		var title=$('[name=title]').val();
+		
+		if(title.trim().length==0)
+			{
+				alert("제목을 입력하세요");
+				return false;
+			}
+		return true;
+	}
+
+
+</script>
 <%@ include file="/views/common/footer.jsp" %>

@@ -98,7 +98,8 @@ public class EventUpdateServlet extends HttpServlet {
 		System.out.println("결과::"+result);
 		String msg="";
 		System.out.println(request.getContextPath()+"/showCalendar?memberId="+memberId);
-		String loc="/showCalendar?memberId="+memberId;
+		 String loc="/showCalendar?memberId="+memberId; 
+		/* String loc="/views/event/eventView"; */
 		if(result>0)
 		{
 			msg="이벤트 등록성공";
