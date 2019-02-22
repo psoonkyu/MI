@@ -66,7 +66,15 @@ table#list{
 						var th="<th>제목</th>";
 							th+="<th>시작일자</th>";
 							th+="<th>끝일자</th>";
-							th+="<th>내용</th>";
+							//true일때 태그가 생성되고 false일땐 태그 생성 x
+							if((Object.keys(data)).includes("groupId")){
+								th+="<th>그룹</th>";
+							}
+							
+							console.log((Object.keys(data)).includes("memo"));
+							if((Object.keys(data)).includes("memo")){
+								th+="<th>내용</th>";
+							}
 							if((Object.keys(data)).includes("filePath")){
 								th+="<th>첨부파일</th>";
 								/*이미지 파일일때는 이미지를 출력해주기
@@ -83,7 +91,9 @@ table#list{
 							var td="";
 							if(a=="filePath"){
 							 	td=$("<td></td>");
-							 	td.append($("<a href='<%=request.getContextPath()%>/fileDownLoad'>"+data[a]+"</a>"));
+							 	console.log('<%=request.getContextPath()%>/fileDownLoad?filePath='+data[a]);
+							 	//key:value형식으로 된 객체안에     a가 key값,  data[a]가 변수안에 들어있는 value값 
+							 	td.append($("<a href='<%=request.getContextPath()%>/fileDownLoad?filePath="+data[a]+"'>"+data[a]+"</a>")); 
 							}
 							else if(a=="eventId")
 							{
@@ -105,6 +115,8 @@ table#list{
 			});
 		});
 	});
+		
+		//댓글구현
 		function fn_commentEvent(eventCode)
 		{
 			$.ajax({
