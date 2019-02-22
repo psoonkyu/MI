@@ -1,5 +1,7 @@
 package com.mi.chat.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.mi.chat.model.vo.Chat;
 import com.mi.chat.model.vo.Chatroom;
-import static common.JDBCTemplate.close;
 
 public class ChatDao {
 	
@@ -52,5 +54,27 @@ public class ChatDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public List<Chat> selectAllChat(Connection conn, int chatroomId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("selectAllChat");
+		List<Chat> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, chatroomId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Chat c = new Chat();
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return 
 	}
 }
