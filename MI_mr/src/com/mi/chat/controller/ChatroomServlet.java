@@ -50,6 +50,7 @@ public class ChatroomServlet extends HttpServlet {
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.setAttribute("list", list);
+		
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 

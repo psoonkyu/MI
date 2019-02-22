@@ -11,6 +11,7 @@ import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
+import javax.json.stream.JsonParser;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -43,7 +44,11 @@ public class BroadSocket {
      */
     @OnMessage
     public void handleMessage(String message,Session userSession) throws IOException{
-    	
+    	System.out.println(message);
+    	JsonParser jsonParser = new JsonParser();
+
+    	JsonObject jsonObject = (JsonObject) jsonParser.parse(message);
+    	System.out.print(jsonObject);
         String username = (String)userSession.getUserProperties().get("username");
         //세션 프로퍼티에 username이 없으면 username을 선언하고 해당 세션으로 메시지를 보낸다.(json 형식이다.)
         //최초 메시지는 username설정
