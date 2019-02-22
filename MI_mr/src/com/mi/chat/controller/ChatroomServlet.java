@@ -33,8 +33,9 @@ public class ChatroomServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int chatroomId = Integer.parseInt(request.getParameter("chatroomId"));
+		System.out.println(chatroomId);
 		List<Chat> list = new ChatService().selectAllChat(chatroomId);
-		
+		System.out.println(list);
 		String msg = "";
 		String loc = "/";
 		String view;

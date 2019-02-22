@@ -87,27 +87,20 @@
 			console.log($(this).children("input").val()); */
 			console.log($(this).text().trim());
 			console.log($(this).siblings("input").val());
-			var windowName = "test";
+			var windowName = $(this).text().trim();
 			var chatroomId = $(this).siblings("input").val();
-			var url = "<%=request.getContextPath()%>/chatroom"
+			var url = "<%=request.getContextPath()%>/chatroom?chatroomId=" + chatroomId;
+			console.log(url);
 			var option = "left=500px, top=100px, width=500px, height=500px, menuba=no, status=no, scrollbars=yes";		
-			var popup = window.open("", windowName, option)
-			//var chatForm = $("<form></form>");
+			var popup = window.open(url, windowName, option);
 			
-			var input = $("<input type='hidden' name='chatroomId'/>");
-			input.val(chatroomId);
-			console.log(input);
-			// $(selector).append(content,function(index,html))
-			chatForm.append(input[0]);
-			
-			chatForm.target = windowName;
+			/* chatForm.target = windowName;
 			chatForm.action = url;
-			chatForm.method = "post";
+			chatForm.method = "get";
 			console.log(chatForm);
 			
-			chatForm.submit();
+			chatForm.submit(); */
 			/* form.after($("#teduri")).submit(); */
-			
 		})
 	</script>
 <%@ include file="/views/common/footer.jsp" %>
