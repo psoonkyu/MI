@@ -1,4 +1,5 @@
 /com/
+<<<<<<< HEAD
 /common/
 # Created by https://www.gitignore.io/api/java,eclipse,windows
 # Edit at https://www.gitignore.io/?templates=java,eclipse,windows
@@ -124,3 +125,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/java,eclipse,windows
+=======
+/sql/
+>>>>>>> branch 'feature_chat' of https://github.com/JangHyunMoon/MI.git

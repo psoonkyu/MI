@@ -7,17 +7,21 @@ public class Chat implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7446472186959882759L;
+	private static final long serialVersionUID = -7277890475837822969L;
+	/**
+	 * 
+	 */
 	private int chatId;
 	private String chatContent;
-	private Date chatTime;
+	private String chatTime;
 	private int chatroomId;
 	private String memberId;
+	private String memberName;
 	
 	public Chat() {
 	}
 
-	public Chat(int chatId, String chatContent, Date chatTime, int chatroomId, String memberId) {
+	public Chat(int chatId, String chatContent, String chatTime, int chatroomId, String memberId) {
 		super();
 		this.chatId = chatId;
 		this.chatContent = chatContent;
@@ -42,11 +46,11 @@ public class Chat implements Serializable{
 		this.chatContent = chatContent;
 	}
 
-	public Date getChatTime() {
+	public String getChatTime() {
 		return chatTime;
 	}
 
-	public void setChatTime(Date chatTime) {
+	public void setChatTime(String chatTime) {
 		this.chatTime = chatTime;
 	}
 
@@ -65,11 +69,20 @@ public class Chat implements Serializable{
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+	
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 
 	@Override
 	public String toString() {
 		return "Chat [chatId=" + chatId + ", chatContent=" + chatContent + ", chatTime=" + chatTime + ", chatroomId="
-				+ chatroomId + ", memberId=" + memberId + "]";
+				+ chatroomId + ", memberId=" + memberId +", memberName=" + memberName + "]";
 	}
 	
 }

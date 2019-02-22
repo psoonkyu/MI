@@ -56,6 +56,7 @@ public class ChatDao {
 		return list;
 	}
 	
+//	selectAllChat = SELECT MEMBER_ID, MEMBER_NAME, CHAT_CONTENT, CHATROOM_ID, TO_CHAR(CHAT_TIME, 'RRRR-MM-DD HH24:MI:SS') AS TIME FROM CHAT JOIN MEMBER USING(MEMBER_ID) WHERE CHATROOM_ID = ? ORDER BY TIME;
 	public List<Chat> selectAllChat(Connection conn, int chatroomId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -67,7 +68,12 @@ public class ChatDao {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Chat c = new Chat();
-				
+				c.setChatContent(rs.getString("chat_content"));
+				c.setChatTime(rs.getString("time"));
+				c.setChatroomId(rs.getInt("chatroom_id"));
+				c.setMemberId(rs.getString("member_id"));
+				c.setMemberName(rs.getString("member_name"));
+				list.add(c);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -75,6 +81,6 @@ public class ChatDao {
 			close(rs);
 			close(pstmt);
 		}
-		return 
+		return list;
 	}
 }

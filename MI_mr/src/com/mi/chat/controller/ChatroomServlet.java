@@ -33,7 +33,24 @@ public class ChatroomServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int chatroomId = Integer.parseInt(request.getParameter("chatroomId"));
+		System.out.println(chatroomId);
 		List<Chat> list = new ChatService().selectAllChat(chatroomId);
+		System.out.println(list);
+		String msg = "";
+		String loc = "/";
+		String view;
+		if (list.size() > 0) {
+			
+			view = "/views/chat/chatView.jsp";
+		} else {
+			msg = "채팅방이 존재하지 않습니다";
+			view = "views/common/msg.jsp";
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**
