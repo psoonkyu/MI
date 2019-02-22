@@ -78,4 +78,20 @@ public class GroupDao {
 		}
 		return list;
 	}
+	
+	public int addGroup(Connection conn, String gName,String[] members)
+	{
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("addGroup");
+		try
+		{
+			
+		}
+		
+		
+		return result;
+	}
+	
+	
 }

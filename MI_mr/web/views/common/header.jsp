@@ -107,11 +107,12 @@ function validate() {
 					<li><a href="<%=request.getContextPath()%>/loginAlert" >일정보기</a></li>
 					<li><a href="<%=request.getContextPath()%>/loginAlert">상세일정 관리</a></li>
 					<li><a href="<%=request.getContextPath()%>/loginAlert">일정등록</a></li>
+					
 				<%} else{%>
 					<li><a href="<%=request.getContextPath()%>/showCalendar?memberId=<%=loginMember.getMemberId()%>">일정보기</a></li>
 					<li><a href="<%=request.getContextPath()%>/detailSchedule?memberID=<%=loginMember.getMemberId()%>">상세일정 관리</a></li>
 					<li><a href="<%=request.getContextPath()%>/event?memberId=<%=loginMember.getMemberId()%>">일정등록</a></li>
-
+				<%} %>
 					
 				</ul>
 			</li>
@@ -120,11 +121,20 @@ function validate() {
 					<span class="icon-calendar"></span>그룹관리
 				</h3>
 				<ul>
+				<%if(loginMember==null){ %>
+					<li><a href="<%=request.getContextPath() %>/loginAlert">그룹관리</a></li>
+					<li><a href="<%=request.getContextPath() %>/loginAlert">채팅관리</a></li>
+					<li><a href="#">투표관리</a></li>
+					
+				<%} else{%>
 					<li><a href="<%=request.getContextPath() %>/groupView?memberId=<%=loginMember.getMemberId()%>">그룹관리</a></li>
 					<li><a href="<%=request.getContextPath() %>/chat">채팅관리</a></li>
 					<li><a href="#">투표관리</a></li>
+				<%} %>
+					
 				</ul>
 			</li>
+			
 			<li>
 				<h3>
 					<span class="icon-heart"></span>To do List
@@ -134,7 +144,6 @@ function validate() {
 					<li><a href="#">List 보기</a></li>
 				</ul>
 			</li>
-			<%} %>
 		</ul>
 	</div>
 	</section>

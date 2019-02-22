@@ -28,6 +28,12 @@ public class GroupService {
 		return list;
 		
 	}
+	public int addGroup(String gName, String[] members){
+		Connection conn=getConnection();
+		int result=dao.addGroup(conn, gName, members);
+		close(conn);
+		return result;
+	}
 	
 
 }

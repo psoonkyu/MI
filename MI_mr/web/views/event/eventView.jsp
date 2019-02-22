@@ -73,7 +73,7 @@
 <form action="<%=request.getContextPath()%>/eventUpDate" method="post" enctype="multipart/form-data">
 	<div id="nameUpdate" >
 	<input type="hidden" id="memberId" name="memberId" value=<%=memberId %> />
-		제목 <input type="text" id="title" name="title"/>
+		제목 <input type="text" id="title" name="title" autocomplete="off"/>
 		<br/>
 		<br/>
 		<input type="date" id="startDate" name="startDate" class="dayday" />
@@ -85,7 +85,7 @@
 			</tr>
 			<tr>
 				<td>
-				<input type="text" name="groupList" list="data"/>
+				<input type="text" name="groupList" list="data" autocomplete="off"/>
                 <datalist id="data">
                 <%
                 
