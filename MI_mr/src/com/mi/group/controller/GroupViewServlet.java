@@ -1,4 +1,4 @@
-package com.mi.detail.controller;
+package com.mi.group.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mi.event.model.service.EventService;
-import com.mi.event.model.vo.Event;
-
-//일정 하나 가져오는 서블릿
+import com.mi.group.model.service.GroupService;
+import com.mi.group.model.vo.Group;
 
 /**
- * Servlet implementation class DetailScheduleServlet
+ * Servlet implementation class GroupViewServlet
  */
-@WebServlet("/detailOne")
-public class DetailOneServlet extends HttpServlet {
+@WebServlet("/groupView")
+public class GroupViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailOneServlet() {
+    public GroupViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +31,16 @@ public class DetailOneServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String eventId=request.getParameter("eventId");
-		Event e=new EventService().detailEvent(eventId);
+	String memberId=request.getParameter("memberId");
 		
-		System.out.println("123123일교일교이료교교교"+e);
+		List<Group> groupList=new GroupService().selectAllGroup(memberId);
 		
-		request.setAttribute("eventId", eventId);
-		request.setAttribute("list", e);
-		request.getRequestDispatcher("/views/detail/detailOne.jsp").forward(request, response);
 		
+		request.setAttribute("memberId", memberId);
+		request.setAttribute("groupList",groupList);
+		
+		
+		request.getRequestDispatcher("/views/group/groupView.jsp").forward(request, response);
 	}
 
 	/**
