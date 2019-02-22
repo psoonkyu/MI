@@ -20,26 +20,70 @@
 	}
 %>
 
+<style>
+	#milogo{
+	position: absolute;
+	z-index: 15;
+	top: 29%;
+	left: 51%;
+	margin: -200px 0 0 -150px;
+	text-align: center;
+	color:black;
+  }
+  #mypagejw {
+	background: gray;
+	color:white;
+	border: none;
+}
+#logoutjw {
+	background: gray;
+	color:white;
+	border: none;
+}
+
+#tedu{
+ border : 2px solid red;
+}
+  </style>
+
 <script>
 function validate() {
 	var idVal = $('[name=memberId]').val();
 	var pwVal = $('[name=password]').val();
 	if (idVal.trim().length == 0) {
-		alert("하...아이디입력...");
+		alert("아이디를 입력하세요");
 		$('[name=memberId]').focus();
 		return false;
 	}
 	if (pwVal.trim().length == 0) {
-		alert("하...비번입력...");
+		alert("비밀번호를 입력하세요");
 		$('[name=password]').focus();
 		return false;
 	}
 	return true;
 }
 
+/* h3클릭시 슬라이드 내려오기(ul내용 보여주기) */
+$(function() {
+	$("#accordian h3").click(function() {
+		$("#accordian ul ul").slideUp();
+		if (!$(this).next().is(":visible")) {
+			$(this).next().slideDown();
+		}
+	});
+});
+/* 버튼으로 왼쪽 div화면 숨기기 */
+$(function(){
+	$("#toggle").click(function(){
+		$("#accordian").toggle(1000);
+	})
+})
+
+
 </script>
 <link rel='stylesheet' href='<%=request.getContextPath()%>/css/style.css' type='text/css' />
 <section>
+<div id="tedu">
 <button id="toggle">▤</button>
 	<div id="accordian">
 		<ul>
@@ -135,7 +179,7 @@ function validate() {
 				</ul>
 			</li>
 			
-			<li>
+		<!-- 	<li>
 				<h3>
 					<span class="icon-heart"></span>To do List
 				</h3>
@@ -143,54 +187,16 @@ function validate() {
 					<li><a href="#">List 등록</a></li>
 					<li><a href="#">List 보기</a></li>
 				</ul>
-			</li>
+			</li> -->
 		</ul>
 	</div>
+	</div>
 	</section>
-	<!-- 홈으로 돌아가기 -->
+<%-- 	<!-- 홈으로 돌아가기 -->
 	<h1>
 		<a href="<%=request.getContextPath()%>">
 		<span id="milogo">Much Information</span>
 		</a>
-	</h1>
-	<style>
-	#milogo{
-	position: absolute;
-	z-index: 15;
-	top: 29%;
-	left: 51%;
-	margin: -200px 0 0 -150px;
-	text-align: center;
-	color:black;
-  }
-  #mypagejw {
-	background: gray;
-	color:white;
-	border: none;
-}
-#logoutjw {
-	background: gray;
-	color:white;
-	border: none;
-}
-  </style>
+	</h1> --%>
 
-
-	<script>
-		/* h3클릭시 슬라이드 내려오기(ul내용 보여주기) */
-		$(function() {
-			$("#accordian h3").click(function() {
-				$("#accordian ul ul").slideUp();
-				if (!$(this).next().is(":visible")) {
-					$(this).next().slideDown();
-				}
-			});
-		});
-		/* 버튼으로 왼쪽 div화면 숨기기 */
-		$(function(){
-			$("#toggle").click(function(){
-				$("#accordian").toggle(1000);
-			})
-		})
-	</script>
 </header>
