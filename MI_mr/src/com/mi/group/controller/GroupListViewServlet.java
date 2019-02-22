@@ -31,8 +31,7 @@ public class GroupListViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	
+
 		String memberId=request.getParameter("memberId");
 		
 		List<Group> groupList=new GroupService().selectAllGroup(memberId);
@@ -41,6 +40,7 @@ public class GroupListViewServlet extends HttpServlet {
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("groupList",groupList);
 		request.getRequestDispatcher("/views/group/groupView.jsp").forward(request, response);
+
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
