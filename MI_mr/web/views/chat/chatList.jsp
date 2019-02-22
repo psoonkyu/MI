@@ -82,9 +82,15 @@
 	</div>
 	<form name=chatForm></form>
 	<script>
+		function randomNum(){
+			var random = (Math.random() * 10000) + 1;
+			console.log(random);
+			return random;
+		}
 		$(".chatroom").click(function(){
 			/* console.log($(this).children("td").text());
 			console.log($(this).children("input").val()); */
+			console.log('chatroomRandomTest : ' + randomNum());
 			console.log($(this).text().trim());
 			console.log($(this).siblings("input").val());
 			var windowName = $(this).text().trim();
@@ -92,7 +98,7 @@
 			var url = "<%=request.getContextPath()%>/chatroom?chatroomId=" + chatroomId;
 			console.log(url);
 			var option = "left=500px, top=100px, width=500px, height=500px, menuba=no, status=no, scrollbars=yes";		
-			var popup = window.open(url, windowName, option);
+			window.open(url, "", option);
 			
 			/* chatForm.target = windowName;
 			chatForm.action = url;
