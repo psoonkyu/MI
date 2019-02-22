@@ -52,7 +52,7 @@
 </style>
 
 <div id="teduri2">
-		<input type="text" id="gNamebar" required placeholder="그룹 이름" />
+		<input type="text" id="gNamebar" required placeholder="그룹 이름" autocomplete="off"/>
 		<button type="button" id="gUpdate">저장</button>
 		<br/>
 		<br>
