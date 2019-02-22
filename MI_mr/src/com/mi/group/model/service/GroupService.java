@@ -29,11 +29,20 @@ public class GroupService {
 		
 	}
 	public int addGroup(String gName, String[] members){
+		for(String s : members) {
+			System.out.println(s);
+		}
 		Connection conn=getConnection();
 		int result=dao.addGroup(conn, gName, members);
 		close(conn);
 		return result;
 	}
 	
-
+	public int addGroupMember(String gName, String[] members)
+	{
+		Connection conn=getConnection();
+		int result=dao.addGroupMember(conn, gName, members);
+		close(conn);
+		return result;
+	}
 }

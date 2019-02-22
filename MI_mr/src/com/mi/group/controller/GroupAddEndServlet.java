@@ -43,12 +43,24 @@ public class GroupAddEndServlet extends HttpServlet {
 		}
 		
 		int result=new GroupService().addGroup(gName,members);
-
-		/*
-		 * if(members.length>0) { for(int i=0; members.length>i;i++) {
-		 * System.out.println(members[i]); } }
-		 */
-
+		int result2=new GroupService().addGroupMember(gName, members);
+		String msg="";
+		String loc="";
+		if(result2>0)
+		{
+			msg="그룹생성 완료";
+			loc="/groupView";
+		}
+		else
+		{
+			msg="그룹생성 실패";
+			loc="/groupView";
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		
 	}
 
 	/**

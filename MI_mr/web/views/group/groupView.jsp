@@ -43,6 +43,12 @@ List<Group> groupList=(List)request.getAttribute("groupList");
  #data{
   RepeatLayout : RepeatLayout.table;
  }
+ a{
+ 	text-decoration:none;
+ }
+ a:link{ color: black; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+
 </style>
 <section id="groupUpdate-container">
 	<div id="teduri" name="teduri">
@@ -55,7 +61,10 @@ List<Group> groupList=(List)request.getAttribute("groupList");
                 	for(Group g : groupList){
                 %>
                 <tr>
-                	<td align="center"><%=g.getGroupName() %></td>
+                	<td align="center">
+                	<%-- <a href='<%=request.getContextPath()%>/memberView.do' onclick="fn_memberList()"><%=g.getGroupName() %></a> --%>
+                	<a href='javascript:void(0)' onclick="fn_memberList()"><%=g.getGroupName() %></a>
+                	</td>
                 </tr>
                 <%} %>
 			<tr>
@@ -80,6 +89,14 @@ List<Group> groupList=(List)request.getAttribute("groupList");
 		})
 	}
 
+	function fn_memberList(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/memberView.do",
+			success:function(data){
+				$('#changeView').html(data);
+			}
+		})
+	}
 </script>
 
 

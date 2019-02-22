@@ -86,12 +86,49 @@ public class GroupDao {
 		String sql=prop.getProperty("addGroup");
 		try
 		{
-			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, gName);
+			pstmt.setString(2, members[0]);
+			result=pstmt.executeUpdate();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 		
+		finally
+		{
+			close(pstmt);
+		}
 		
 		return result;
 	}
 	
+	public int addGroupMember(Connection conn, String gName, String[] members)
+	{
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("addGroupMember");
+		try
+		{
+			for(String s : members) {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, gName);
+			pstmt.setString(2, s);
+			result=pstmt.executeUpdate();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		finally
+		{
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }

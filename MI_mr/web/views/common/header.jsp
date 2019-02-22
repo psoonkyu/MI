@@ -83,8 +83,7 @@ $(function(){
 </script>
 <link rel='stylesheet' href='<%=request.getContextPath()%>/css/style.css' type='text/css' />
 <section>
-<div id="tedu">
-<button id="toggle">▤</button>
+
 	<div id="accordian">
 		<ul>
 		<h1>M.I</h1>
@@ -190,13 +189,15 @@ $(function(){
 			</li> -->
 		</ul>
 	</div>
-	</div>
 	</section>
 <%-- 	<!-- 홈으로 돌아가기 -->
 	<h1>
+
 		<a href="<%=request.getContextPath()%>">
 		<span id="milogo">Much Information</span>
 		</a>
 	</h1> --%>
-
+<!-- <div id="tedu"> -->
+<button id="toggle">▤</button>
+<!-- </div> -->
 </header>

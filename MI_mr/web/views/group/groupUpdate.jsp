@@ -84,6 +84,7 @@
 					type:"post",
 					success:function(data){
 						console.log(data);
+						location.href="<%=request.getContextPath()%>/groupView?memberId=<%=logginMember.getMemberId()%>";
 					}
 				})
 			});
