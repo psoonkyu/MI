@@ -120,7 +120,12 @@ table#list{
 		function fn_commentEvent(eventCode)
 		{
 			$.ajax({
-				
+				url:"<%=request.getContextPath()%>/detail/comment.do",
+				type : "post",
+				dataType:"json",
+				data : {"commentLevel" : 1,"commentWriter" : <%=loginMember.getMemberId()%>,
+					"commentContent":}
+				//server에서 request.getParameter 하면 값 넣어준 1이 들어옴
 				success:function(data){
 					var commentList=$('#commentList');
 					var li=$()
