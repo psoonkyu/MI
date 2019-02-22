@@ -20,17 +20,17 @@
 	for(int i=0;i<eventList.size();i++){
 		if(eventList.get(i).getGroupId()==null){
 			eventList.get(i).setGroupId(memberId);
-			Gcolor="#8ca6ce";
+			Gcolor="lightcoral";
 			map.put(memberId, Gcolor);
 		}
 		else{
 			switch(eventList.get(i).getGroupId()){
-			case "G1" : Gcolor="RGB(236,056,067)"; break;
-			case "G2" : Gcolor="RGB(247,193,000)"; break;
-			case "G3" : Gcolor="RGB(000,186,201)"; break;
-			case "G4" : Gcolor="RGB(140,124,091)"; break;
-			case "G5" : Gcolor="RGB(178,209,053)"; break;
-			case "G6" : Gcolor="RGB(124,089,119)"; break;
+			case "G1" : Gcolor="lightgreen"; break;
+			case "G2" : Gcolor="lightblue"; break;
+			case "G3" : Gcolor="lightseagreen"; break;
+			case "G4" : Gcolor="lightpink"; break;
+			case "G5" : Gcolor="ligthgray"; break;
+			case "G6" : Gcolor="lightslategrey"; break;
 			}
 			map.put(eventList.get(i).getGroupId(), Gcolor);
 		}
@@ -100,10 +100,6 @@ var eventDataset=[
     margin: 10px 20px;
     display:inline-block;
   }
-  /* aside{
-  	width:70%;
-  	float:right;
-  } */
   .content_container{
   	width:80%;
   	float:right;
@@ -112,12 +108,30 @@ var eventDataset=[
   	display:inline-block;
   	border:1px solid lightgray;
   	list-style:none;
-  	text-align: center;
   	max-width:150px;
+  	height:180px;
+  	text-align : center;
   	width:100%;
   	margin:0px;
   	padding:0px;
   }
+  ul li{
+  	padding:6px;
+  }
+  ul li a{
+  	padding:3px; 
+  	font-size : 14px;
+  	text-decoration:none;
+  }
+  ul li a:hover, ul li a:focus {
+  	border:1px solid lightgray;
+  	font:bold;
+  }
+  ul li a.now {
+	color:#fff;
+	background-color:#f40;
+	border:1px solid #f40;
+}
   	
 
 </style>
@@ -126,17 +140,16 @@ var eventDataset=[
 
 
 <body>
-<!-- <aside> -->
 <table class="content_container">
 <tr>
 <td>
 	<ul id="group_container">
-		<span><b>Group List</b></span>
-		<li style="color:<%=map.get(memberId)%>">My schedule</li>
+		<li><span><b>Group List</b></span></li>
+		<li><a href="#" style="color:<%=map.get(memberId)%>">My schedule</a></li>
 		<%
 			for(Group g : groupList){
 		%>
-		<li style="color:<%=map.get(g.getGroupId())%>;"><%=g.getGroupName() %></li>
+		<li ><a href="#" style="color:<%=map.get(g.getGroupId())%>;"><%=g.getGroupName() %></a></li>
 		<%} %>
 	</ul>
 </td>
@@ -144,7 +157,6 @@ var eventDataset=[
   	<div id='calendar'></div>
 </td>
 </tr>
-<!-- </aside> -->
 </table>
 </body>
 
