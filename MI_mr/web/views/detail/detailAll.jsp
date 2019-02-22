@@ -34,6 +34,15 @@ div.inline {
 .view {
 	cursor: pointer;
 }
+a{
+	color:black;
+	text-decoration:none;
+}
+table#list{
+	margin-bottom:10px;
+	width:100%;
+}
+
 </style>
 
 
@@ -41,7 +50,7 @@ div.inline {
 		function fn_detailAdd(){
 			location.href="<%=request.getContextPath()%>/event?memberId=<%=loginMember.getMemberId()%>";
 		}
-		// d1 div안에 td(view클래스)를 클릭했을 때 발생하는 이벤트
+		// div(id='d1')안에 td(view클래스)를 클릭했을 때 발생하는 이벤트 - ajax
 		$(function(){
 			$('.view').on('click',function(){
 				console.log($(this));
@@ -53,12 +62,59 @@ div.inline {
 					data : {"eventId" : $(this).siblings("input").val()},
 				// 서블릿이 응답해서 건네주는 부분
 					success : function(data) {
-						$('#d2').html();
-						console.log(data);
+						var tr=$("<tr></tr>");
+						var th="<th>제목</th>";
+							th+="<th>시작일자</th>";
+							th+="<th>끝일자</th>";
+							th+="<th>내용</th>";
+							if((Object.keys(data)).includes("filePath")){
+								th+="<th>첨부파일</th>";
+								/*이미지 파일일때는 이미지를 출력해주기
+								if(){
+									
+								}*/
+							}
+							th+="<th>작성자</th>";
+							tr.html(th);	
+						$('#list').html(tr);
+						var eventCode=data['eventId'];
+						var tr2=$("<tr></tr>");
+						for(var a in data){
+							var td="";
+							if(a=="filePath"){
+							 	td=$("<td></td>");
+							 	td.append($("<a href='<%=request.getContextPath()%>/fileDownLoad'>"+data[a]+"</a>"));
+							}
+							else if(a=="eventId")
+							{
+								continue;
+							}
+							else {
+								td=$("<td>"+data[a]+"</td>");
+							}
+							tr2.append(td);
+						}
+						$('#list').append(tr2);
+						var commentArea=$("<textarea cols='50' rows='3' name='comment' id='commentArea'></textarea>");
+						var button=$("<button class='comment-btn'></button>").html("댓글등록");
+						$('#commentContainer').html(commentArea.append(commentList));
+						$('#commentArea').after(button);
+						var commentList=$("<ul id='commentList'></ul>");
+						fn_commentEvent(eventCode);
 				}
 			});
 		});
 	});
+		function fn_commentEvent(eventCode)
+		{
+			$.ajax({
+				
+				success:function(data){
+					var commentList=$('#commentList');
+					var li=$()
+				}
+			});
+		}
 </script>
 
 <%
@@ -84,7 +140,7 @@ div.inline {
 			<tr>
 				<td><%=e.getStartDate()%></td>
 				<td class="view"><b><%=e.getTitle()%></b></td>
-				<input type="hidden" value="<%=e.getEventId() %>">
+				<input type="hidden" value="<%=e.getEventId() %>"/>
 			</tr>
 			<%
 				}
@@ -93,25 +149,10 @@ div.inline {
 	</div>
 
 	<div id='d2'>
-		<table>
-			<tr>
-				<%
-					for (Event e : list) {
-				%>
-				<td><%=e.getEndDate()%></td>
-				<td><%=e.getGroupId()%></td>
-				<td><%=e.getMemo()%></td>
-				<td>
-					<%if (e.getFilePath() != null) {%> 
-				<%-- 	<img alt='클립' src="<%=request.getContextPath()%>/image/clip.jpg" width='13px'> --%>
-					<%}%>
-				</td>
-				<td><%=e.getPrepairingId()%></td>
-			</tr>
-			<%}	%>
+		<table id="list">	
 		</table>
-
-
+		<div id="commentContainer">
+		</div>
 	</div>
 </div>
 

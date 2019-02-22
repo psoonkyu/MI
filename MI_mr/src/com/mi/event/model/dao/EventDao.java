@@ -113,11 +113,4 @@ public class EventDao {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
 }
