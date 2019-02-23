@@ -70,16 +70,32 @@ table#list{
 							if((Object.keys(data)).includes("groupId")){
 								th+="<th>그룹</th>";
 							}
-							console.log((Object.keys(data)).includes("memo"));
+							//console.log((Object.keys(data)).includes("memo"));
 							if((Object.keys(data)).includes("memo")){
 								th+="<th>내용</th>";
 							}
+								
+								console.log("data check : "+(Object.keys(data)));
+								console.log((Object.keys(data)).includes("filePath"));
 							if((Object.keys(data)).includes("filePath")){
+								console.log(data["filePath"]);
 								th+="<th>첨부파일</th>";
-								/*이미지 파일일때는 이미지를 출력해주기
-								if(){
-									
-								}*/
+
+								var filePath=data['filePath'];
+								var fileSplit=filePath.split('.');
+								var fileValue=filePath.value;
+								console.log("변수 테스트(path) : "+filePath);
+								console.log("변수 테스트(split) : "+fileSplit);
+								console.log("변수 테스트 : "+fileSplit[1]);
+								/*이미지 파일일때는 이미지를 출력해주기*/
+								
+								if(fileSplit[1]=="jpg"&&fileSplit[1]=="png"){
+									//split으로 나눈 파일경로들을 배열로 저장한 후 파일들이 사진인지 검사해서 다시 저장하고 출력
+								
+								}
+								
+								
+								
 							}
 							th+="<th>작성자</th>";
 							tr.html(th);	
@@ -95,8 +111,10 @@ table#list{
 							 	td.append($("<a href='<%=request.getContextPath()%>/fileDownLoad?filePath="+data[a]+"'>"+data[a]+"</a>")); 
 							}
 							else if(a=="eventId")
-							{
-								continue;
+							{	//eventId를 key로 했을 때 eventId에 맵핑된 값을 가져와야함
+								td=$("<input type='hidden' id='eventId' value='"+data[a]+"'>");
+								
+								//continue;
 							}
 							else {
 								td=$("<td>"+data[a]+"</td>");
@@ -124,10 +142,10 @@ table#list{
 				dataType:"json",
 				data : {"commentLevel" : 1,"commentWriter" : "<%=loginMember.getMemberId()%>",
 					"commentContent" : $("#commentArea").val(), "commentRef" : 0},
-				/* server에서 request.getParameter 하면 값 넣어준 1이 들어옴 */
+				/* server에서 request.getParameter("commentLevel") 하면 값 넣어준 1이 들어옴 */
 				success:function(data){
 					var commentList=$('#commentList');
-					var li=$();
+					var li=$("<li></li>");
 				}
 			});
 		} 
@@ -139,9 +157,9 @@ table#list{
 				url:"<%=request.getContextPath()%>/commentDelete",
 				type : "post",
 				dataType:"json",
-				data : {"commentLevel" : 1,"commentWriter" : "<%=loginMember.getMemberId()%>",
-					"commentContent" : $("#commentArea").val(), "commentRef" : 0},
-				/* server에서 request.getParameter("commentLevel") 하면 값 넣어준 1이 들어옴 */
+				//서버에다가 넘겨주는 것
+				data : { "eventId" : $('#eventId').val() 
+				},
 				success:function(data){
 					var commentList=$('#commentList');
 					var li=$();
@@ -179,7 +197,4 @@ table#list{
 		</div>
 	</div>
 </div>
-
-
-
 <%@ include file="/views/common/footer.jsp"%>
