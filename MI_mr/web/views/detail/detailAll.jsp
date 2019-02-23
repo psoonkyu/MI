@@ -66,11 +66,10 @@ table#list{
 						var th="<th>제목</th>";
 							th+="<th>시작일자</th>";
 							th+="<th>끝일자</th>";
-							//true일때 태그가 생성되고 false일땐 태그 생성 x
+					//true일때 태그가 생성되고 false일땐 태그 생성 x 즉, 값이 있을땐 태그 생성 없을땐 생성 x
 							if((Object.keys(data)).includes("groupId")){
 								th+="<th>그룹</th>";
 							}
-							
 							console.log((Object.keys(data)).includes("memo"));
 							if((Object.keys(data)).includes("memo")){
 								th+="<th>내용</th>";
@@ -116,33 +115,45 @@ table#list{
 		});
 	});
 		
-		//댓글구현
+		//댓글 등록 구현
 		function fn_commentEvent(eventCode)
 		{
 			$.ajax({
-				url:"<%=request.getContextPath()%>/detail/comment.do",
+				url:"<%=request.getContextPath()%>/commentInsert",
 				type : "post",
 				dataType:"json",
-				data : {"commentLevel" : 1,"commentWriter" : <%=loginMember.getMemberId()%>,
-					"commentContent":}
-				//server에서 request.getParameter 하면 값 넣어준 1이 들어옴
+				data : {"commentLevel" : 1,"commentWriter" : "<%=loginMember.getMemberId()%>",
+					"commentContent" : $("#commentArea").val(), "commentRef" : 0},
+				/* server에서 request.getParameter 하면 값 넣어준 1이 들어옴 */
 				success:function(data){
 					var commentList=$('#commentList');
-					var li=$()
+					var li=$();
 				}
 			});
-		}
+		} 
+		
+		//댓글 삭제 구현
+		function fn_commentEvent(eventCode)
+		{
+			$.ajax({
+				url:"<%=request.getContextPath()%>/commentDelete",
+				type : "post",
+				dataType:"json",
+				data : {"commentLevel" : 1,"commentWriter" : "<%=loginMember.getMemberId()%>",
+					"commentContent" : $("#commentArea").val(), "commentRef" : 0},
+				/* server에서 request.getParameter("commentLevel") 하면 값 넣어준 1이 들어옴 */
+				success:function(data){
+					var commentList=$('#commentList');
+					var li=$();
+				}
+			});
+		} 
 </script>
 
-<%
-	if (loginMember != null) {
-%>
+<%if (loginMember != null) {%>
 <input type="button" value="등록" id="btn-add" onclick="fn_detailAdd()" />
 <input type="button" value="삭제" id="btn-del" onclick="fn_detailDelete()" />
-
-<%
-	}
-%>
+<%}%>
 <div id="container" style="overflow: auto;">
 	<div id="d1" style="overflow: auto;">
 		<!-- 제목을 눌렀을 때 ajax통신으로 아래에 받아주면 됨 -->
@@ -151,17 +162,13 @@ table#list{
 				<th>시작날짜</th>
 				<th>일정제목</th>
 			</tr>
-			<%
-				for (Event e : list) {
-			%>
+			<%	for (Event e : list) {	%>
 			<tr>
 				<td><%=e.getStartDate()%></td>
 				<td class="view"><b><%=e.getTitle()%></b></td>
 				<input type="hidden" value="<%=e.getEventId() %>"/>
 			</tr>
-			<%
-				}
-			%>
+			<%}	%>
 		</table>
 	</div>
 
