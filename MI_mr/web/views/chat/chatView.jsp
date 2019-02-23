@@ -5,8 +5,9 @@
 <head>
 <% 
 	List<Chat> list = (List<Chat>) request.getAttribute("list"); 
+	int chatroomId = Integer.parseInt(request.getParameter("chatroomId"));
   	Member loginMember = (Member) session.getAttribute("loginMember");
-  	out.println(loginMember);
+  	
 %>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -81,14 +82,39 @@
            		var lastTr = $("#chatroom tr:last-child");
            		console.log(lastTr);
            		addChat(jsonData.name, jsonData.content, jsonData.time);
-           		
            	}
         }
         //메시지 보내기
         function sendMessage(){
             var messageText = document.getElementById("messageText");
             // ajax 활용 chat 데이터 insert, type: message/alarm 중 message로 데이터 전송
-            webSocket.send(JSON.stringify({"type" : "message", "name" : "<%=loginMember.getMemberName()%>","content" : messageText.value, "time" : getTimeStamp()}));
+            webSocket.send(JSON.stringify({"type" : "message", "chatroomId" : <%=chatroomId%>,"name" : "<%=loginMember.getMemberName()%>","content" : messageText.value, "time" : getTimeStamp()}));
+            $.ajax({
+				url: "<%=request.getContextPath()%>/insertChat",
+				type: "post",
+				data: {"name" : "<%=loginMember.getMemberName()%>","content" : messageText.value},
+				dataType: "json",
+				success: function(data) {
+					console.log(data);
+					// 서버에서 인코딩한 뒤 보낸 데이터 : %EC%9C%A0%EB%B3%91%EC%8A%B9 
+					console.log(data['userId']);
+					// 서버에서 인코딩한 뒤 보낸 데이터를 decode 처리 : 유병승
+					console.log(decodeURI(data['userId']));
+					/* console.log(data.name + " type : " + typeof data.name);
+					console.log(data.height + " type : " + typeof data.height);
+					console.log(data.weight + " type : " + typeof data.weight); */
+					var user = "";
+					for (var i = 0; i < data.length; i++) {
+						console.log(data[i]);
+						
+						 for (var a in data[i]) {
+							console.log(a + " : " + data[i][a]);
+							user += a + " : " + data[i][a] + "\n";
+						 } 
+					}
+					$("#mydiv").html(user);
+				}
+			});
             messageText.value = "";
         }
         

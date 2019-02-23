@@ -41,7 +41,7 @@ public class ChatroomServlet extends HttpServlet {
 		String view;
 		if (list.size() > 0) {
 			
-			view = "/views/chat/chatView.jsp";
+			view = "/views/chat/chatView.jsp?chatroomId=" + chatroomId;
 		} else {
 			msg = "채팅방이 존재하지 않습니다";
 			view = "views/common/msg.jsp";
