@@ -12,6 +12,21 @@
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <title>채팅방</title>
 </head>
+<style>
+
+	div#chatroomBorder {
+		overflow: scroll;
+	}
+	#sender { padding: 3px; position: fixed; bottom: 0; width: 100%;}
+      
+	#messageText{
+		border: 1px solid blue; padding: 10px; width: 90%; margin-right: .5%;
+	}
+	
+	#send {
+		width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px;
+	}
+</style>
 <body>
 	<div id="chatroomBorder">
 		<table id="chatroom">
@@ -27,11 +42,12 @@
 	
 	<!-- 메시지 표시 영역 -->
     <textarea id="messageTextArea" readonly="readonly" rows="10" cols="45"></textarea><br />
-    <!-- 송신 메시지 텍스트박스 -->
-    <input type="text" id="messageText" size="50" />
-    <!-- 송신 버튼 -->
-    <input type="button" value="Send" onclick="sendMessage()" id="send"/>
-	
+    <div id="sender">
+	    <!-- 송신 메시지 텍스트박스 -->
+	    <input type="text" id="messageText" size="50" />
+	    <!-- 송신 버튼 -->
+	    <input type="button" value="Send" onclick="sendMessage()" id="send"/>
+	</div>
 	<% if (loginMember != null) { %>
     <script type="text/javascript">
     
@@ -62,34 +78,17 @@
             var jsonData = JSON.parse(message.data);
            	switch(jsonData.type) {
            	case "message":
-           		console.log("this is message : " + jsonData.content);
-           		console.log($("#chatroom tr:last-child").html());
-           		console.log(jsonData.time);
            		var lastTr = $("#chatroom tr:last-child");
-           		var newTr = $("<tr></tr>");
-           		var html = "<td>" + jsonData.name + "</td>";
-           		html += "<td>" + jsonData.content + "</td>";
-           		html += "<td>" + jsonData.time + "</td>";
-           		newTr.html(html)
-           		$("#chatroom").append(newTr);
+           		console.log(lastTr);
+           		addChat(jsonData.name, jsonData.content, jsonData.time);
+           		
            	}
-           	/*
-           	Object
-				message: "test"
-				username: "miri"
-           	*/
-           	/* console.log(jsonData.message + " : " + jsonData.username);
-            
-            if(jsonData.message != null) {
-                messageTextArea.value += jsonData.username + " : " + jsonData.message + "\n";
-            }; */
         }
         //메시지 보내기
         function sendMessage(){
             var messageText = document.getElementById("messageText");
             // ajax 활용 chat 데이터 insert, type: message/alarm 중 message로 데이터 전송
             webSocket.send(JSON.stringify({"type" : "message", "name" : "<%=loginMember.getMemberName()%>","content" : messageText.value, "time" : getTimeStamp()}));
-            console.log("<%=loginMember.getMemberName()%>");
             messageText.value = "";
         }
         
@@ -119,20 +118,30 @@
        	function leadingZeros(n, digits) {
        	  var zero = '';
        	  n = n.toString();
-
        	  if (n.length < digits) {
        	    for (i = 0; i < digits - n.length; i++)
        	      zero += '0';
        	  }
+       	  
        	  return zero + n;
        	}
     </script>
     <%} %>
 	
 	<script>
-	function addChat(memberName, chatContent, chatTime) {
+	function addChat(name, content, time) {
 		/* 스크롤바 위치 위에서부터 scrollHeight만큼 내림
 		$("#chatroomBorder").scrollTop($("#chatroomBorder")[0].scrollHeight); */ 
+		var newTr = $("<tr></tr>");
+   		var html = "<td>" + name + "</td>";
+   		html += "<td>" + content + "</td>";
+   		html += "<td>" + time + "</td>";
+   		newTr.html(html)
+   		$("#chatroom").append(newTr);
+   		/* var scrollPosition = $("#send").offset().top; */
+   		/* document.body.scrollTop = document.body.scrollHeight; */
+   		var scrollPosition = $("#send").offset().top;
+   		$("#chatroomBorder").scrollTop($("#chatroomBorder")[0].scrollHeight);
 	}
 	
 	</script>
