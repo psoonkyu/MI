@@ -60,23 +60,28 @@
         	*/
             //Json 풀기
             var jsonData = JSON.parse(message.data);
-           	console.log(jsonData);
+           	switch(jsonData.type) {
+           	case "message":
+           		console.log("this is message : " + jsonData.content);
+           		console.log($("#chatroom tr:last-child").html());
+           		console.log(jsonData.time);
+           	}
            	/*
            	Object
 				message: "test"
 				username: "miri"
            	*/
-           	console.log(jsonData.message + " : " + jsonData.username);
+           	/* console.log(jsonData.message + " : " + jsonData.username);
             
             if(jsonData.message != null) {
                 messageTextArea.value += jsonData.username + " : " + jsonData.message + "\n";
-            };
+            }; */
         }
         //메시지 보내기
         function sendMessage(){
             var messageText = document.getElementById("messageText");
             // ajax 활용 chat 데이터 insert, type: message/alarm 중 message로 데이터 전송
-            webSocket.send({"content" : messageText.value, "type" : "message"});
+            webSocket.send(JSON.stringify({"type" : "message", "content" : messageText.value, "time" : new Date()}));
             messageText.value = "";
         }
         

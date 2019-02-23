@@ -1,7 +1,9 @@
 package com.mi.socket.controller;
 
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +13,6 @@ import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
-import javax.json.stream.JsonParser;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -53,11 +54,11 @@ public class BroadSocket {
     	JSONObject jsonObject = null;
 		try {
 			jsonObject = (JSONObject) jsonParser.parse(message);
-			jsonObject.put("username", username);
+			System.out.print(jsonObject.toJSONString());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-    	System.out.print(jsonObject.toJSONString());
+    	
         
         
         //username이 있으면 전체에게 메시지를 보낸다. (JSON 형식)
