@@ -19,6 +19,8 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
  
 @ServerEndpoint("/broadsocket")
 public class BroadSocket {
@@ -45,22 +47,23 @@ public class BroadSocket {
     @OnMessage
     public void handleMessage(String message,Session userSession) throws IOException{
     	System.out.println(message);
-    	JsonParser jsonParser = new JsonParser();
+    	String username = (String)userSession.getUserProperties().get("username");
+    	JSONParser jsonParser = new JSONParser();
 
-    	JsonObject jsonObject = (JsonObject) jsonParser.parse(message);
-    	System.out.print(jsonObject);
-        String username = (String)userSession.getUserProperties().get("username");
-        //세션 프로퍼티에 username이 없으면 username을 선언하고 해당 세션으로 메시지를 보낸다.(json 형식이다.)
-        //최초 메시지는 username설정
-        if(username == null){
-            userSession.getUserProperties().put("username", message);
-            userSession.getBasicRemote().sendText(buildJsonData("System", "you are now connected as " + message));
-            return;
-        }
-        //username이 있으면 전체에게 메시지를 보낸다.
+    	JSONObject jsonObject = null;
+		try {
+			jsonObject = (JSONObject) jsonParser.parse(message);
+			jsonObject.put("username", username);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	System.out.print(jsonObject.toJSONString());
+        
+        
+        //username이 있으면 전체에게 메시지를 보낸다. (JSON 형식)
         Iterator<Session> iterator = sessionUsers.iterator();
         while(iterator.hasNext()){
-            iterator.next().getBasicRemote().sendText(buildJsonData(username,message));
+            iterator.next().getBasicRemote().sendText(jsonObject.toJSONString());
         }
     }
     /**
