@@ -65,6 +65,13 @@
            		console.log("this is message : " + jsonData.content);
            		console.log($("#chatroom tr:last-child").html());
            		console.log(jsonData.time);
+           		var lastTr = $("#chatroom tr:last-child");
+           		var newTr = $("<tr></tr>");
+           		var html = "<td>" + jsonData.name + "</td>";
+           		html += "<td>" + jsonData.content + "</td>";
+           		html += "<td>" + jsonData.time + "</td>";
+           		newTr.html(html)
+           		$("#chatroom").append(newTr);
            	}
            	/*
            	Object
@@ -81,7 +88,8 @@
         function sendMessage(){
             var messageText = document.getElementById("messageText");
             // ajax 활용 chat 데이터 insert, type: message/alarm 중 message로 데이터 전송
-            webSocket.send(JSON.stringify({"type" : "message", "content" : messageText.value, "time" : new Date()}));
+            webSocket.send(JSON.stringify({"type" : "message", "name" : "<%=loginMember.getMemberName()%>","content" : messageText.value, "time" : getTimeStamp()}));
+            console.log("<%=loginMember.getMemberName()%>");
             messageText.value = "";
         }
         
@@ -90,6 +98,34 @@
         		$("#send").trigger("click");
         	}
         });
+        
+        function getTimeStamp() {
+        	  var d = new Date();
+
+        	  var s =
+        	    leadingZeros(d.getFullYear(), 4) + '-' +
+        	    leadingZeros(d.getMonth() + 1, 2) + '-' +
+        	    leadingZeros(d.getDate(), 2) + ' ' +
+
+        	    leadingZeros(d.getHours(), 2) + ':' +
+        	    leadingZeros(d.getMinutes(), 2) + ':' +
+        	    leadingZeros(d.getSeconds(), 2);
+
+        	  return s;
+        }
+
+
+
+       	function leadingZeros(n, digits) {
+       	  var zero = '';
+       	  n = n.toString();
+
+       	  if (n.length < digits) {
+       	    for (i = 0; i < digits - n.length; i++)
+       	      zero += '0';
+       	  }
+       	  return zero + n;
+       	}
     </script>
     <%} %>
 	
